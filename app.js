@@ -9,7 +9,7 @@ const myFileCtl     = require('./htmlFileSaveModule')
 
 // const myProjectDir          = '/Users/terryakishin/notion-example/index.html';
 // const myProjectDirRename    = '/Users/terryakishin/notion-example/index_'+myTime.getTimeStamp()+'.html';
-const myHtmlFileName        = 'index.js'
+const myHtmlFileName        = 'index.html'
 const myHtmlBackFileName    = 'index_'+myTime.getTimeStamp()+'.html'
 
 app.use(express.static('/Users/terryakishin/notion-example/public'));
