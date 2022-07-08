@@ -1,14 +1,22 @@
-let express = require("express");
-let app = express();
-// let NotionPageToHtml = require('notion-page-to-html');
+/**
+ *  author          : Terry Shin
+ *  Date            : 2022.07.07
+ *  Modified Data   : 2022.08.08
+ *  version         : v1.1 
+ */
 
+// const version="1.0"     // 22.07.07 : 최초 생성 버전
+const version="1.1"         // 22.07.08 : 내가 작성한 모듈을 my_module 폴더아래 이동, app.js에서 경로 수정
 
-const myTime        = require('./timeModule');
-const myNotion2Html = require('./notionPageHtmlModule');
-const myFileCtl     = require('./htmlFileSaveModule')
+// nodejs module require
+const myTime        = require('./my_module/timeModule');
+const myNotion2Html = require('./my_module/notionPageHtmlModule');
+const myFileCtl     = require('./my_module/htmlFileSaveModule')
 
-// const myProjectDir          = '/Users/terryakishin/notion-example/index.html';
-// const myProjectDirRename    = '/Users/terryakishin/notion-example/index_'+myTime.getTimeStamp()+'.html';
+let express         = require("express");
+let app             = express();
+
+// gloabal values
 const myHtmlFileName        = 'index.html'
 const myHtmlBackFileName    = 'index_'+myTime.getTimeStamp()+'.html'
 
@@ -22,7 +30,8 @@ app.use('/add', function(req,res){
     const myProjectDir          = req.body.path+"/"+myHtmlFileName;
     const myProjectDirRename    = req.body.path+"/"+myHtmlBackFileName;
 
-    myFileCtl.checkAlreadyExistedFile( myProjectDir,myProjectDirRename, function(res){
+    // ver 1.1 수정 - myFileCtl 모듈의 checkAlreadyExistedFile 메서드 인자 수정
+    myFileCtl.checkAlreadyExistedFile( myProjectDir, function(res){ 
         console.log(res);
         if(res == true)
             myFileCtl.renameFile(myProjectDir, myProjectDirRename);
@@ -38,7 +47,7 @@ app.use('/add', function(req,res){
 
 app.listen(4000, function()
 {
-    console.log("App is running on port 4000");
+    console.log("App is running on port 4000. version : " + version);
 });
 
 app.get("/", function(req, res){
